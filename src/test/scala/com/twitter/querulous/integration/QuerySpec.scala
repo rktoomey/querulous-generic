@@ -10,23 +10,27 @@ import com.twitter.querulous.evaluator.{StandardQueryEvaluatorFactory, QueryEval
 
 object QuerySpec extends Specification {
   import TestEvaluator._
-  val config = Configgy.config.configMap("db")
-  val username = config("username")
-  val password = config("password")
-
   "Query" should {
-    val queryEvaluator = testEvaluatorFactory("localhost", username, password)
+    val queryEvaluator = testEvaluatorFactory("org.hsqldb.jdbcDriver", "jdbc:hsqldb:mem:querulous", "sa", "")
+
+    doBefore {
+      queryEvaluator.execute("CREATE TABLE foo ( bar VARCHAR(10) )")
+    }
 
     "with too many arguments" >> {
-      queryEvaluator.select("SELECT 1 FROM DUAL WHERE 1 IN (?)", 1, 2, 3) { r => 1 } must throwA[TooManyQueryParametersException]
+      queryEvaluator.select("SELECT 1 FROM foo WHERE 1 IN (?)", 1, 2, 3) { r => 1 } must throwA[TooManyQueryParametersException]
     }
 
     "with too few arguments" >> {
-      queryEvaluator.select("SELECT 1 FROM DUAL WHERE 1 = ? OR 1 = ?", 1) { r => 1 } must throwA[TooFewQueryParametersException]
+      queryEvaluator.select("SELECT 1 FROM foo WHERE 1 = ? OR 1 = ?", 1) { r => 1 } must throwA[TooFewQueryParametersException]
     }
 
     "with just the right number of arguments" >> {
-      queryEvaluator.select("SELECT 1 FROM DUAL WHERE 1 IN (?)", List(1, 2, 3))(_.getInt(1)).toList mustEqual List(1)
+      queryEvaluator.select("SELECT count(*) FROM foo WHERE 1 IN (?)", List(1, 2, 3))(_.getInt(1)).toList mustEqual List(0)
+    }
+
+    doAfter {
+      queryEvaluator.execute("DROP TABLE foo")
     }
   }
 }

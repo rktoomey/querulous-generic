@@ -29,7 +29,7 @@ object TimingOutDatabaseSpec extends Specification with JMocker with ClassMocker
 //      one(connection).close()
     }
 
-    val timingOutDatabase = new TimingOutDatabase(database, List("dbhost"), "dbname", 1, 1, timeout, timeout, 1)
+    val timingOutDatabase = new TimingOutDatabase(database, "driver", "dbname", 1, 1, timeout, timeout, 1)
     shouldWait = true
 
     "timeout" in {

@@ -3,7 +3,6 @@ package com.twitter.querulous.unit
 import org.specs.Specification
 import org.specs.mock.{JMocker, ClassMocker}
 import java.sql.{ResultSet, SQLException, SQLIntegrityConstraintViolationException}
-import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException
 import com.twitter.querulous.test.FakeQueryEvaluator
 import com.twitter.querulous.evaluator.{AutoDisablingQueryEvaluator, Transaction}
 import com.twitter.xrayspecs.Time
@@ -24,16 +23,8 @@ object AutoDisablingQueryEvaluatorSpec extends Specification with JMocker with C
       }
 
       "when there are some failures" >> {
-        "when the failures are either MySQLIntegrityConstraintViolationException or SQLIntegrityConstraintViolationException" >> {
+        "when the failures are SQLIntegrityConstraintViolationException" >> {
           var invocationCount = 0
-
-          (0 until disableErrorCount + 1) foreach { i =>
-            autoDisablingQueryEvaluator.select("SELECT 1 FROM DUAL") { resultSet =>
-              invocationCount += 1
-              throw new MySQLIntegrityConstraintViolationException
-            } must throwA[MySQLIntegrityConstraintViolationException]
-          }
-          invocationCount mustEqual disableErrorCount + 1
 
           invocationCount = 0
           (0 until disableErrorCount + 1) foreach { i =>

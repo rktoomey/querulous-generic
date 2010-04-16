@@ -2,7 +2,7 @@ package com.twitter.querulous.database
 
 import java.sql.{SQLException, Connection}
 import org.apache.commons.dbcp.{PoolableConnectionFactory, DriverManagerConnectionFactory, PoolingDataSource}
-import org.apache.commons.pool.impl.{GenericObjectPool, StackKeyedObjectPoolFactory}
+import org.apache.commons.pool.impl.{GenericObjectPool}
 import com.twitter.xrayspecs.Duration
 
 class ApachePoolingDatabaseFactory(
@@ -13,10 +13,10 @@ class ApachePoolingDatabaseFactory(
   checkConnectionHealthOnReservation: Boolean,
   evictConnectionIfIdleFor: Duration) extends DatabaseFactory {
 
-  def apply(dbhosts: List[String], dbname: String, username: String, password: String) = {
+  def apply(jdbcDriver: String, jdbcUrl: String, username: String, password: String) = {
     val pool = new ApachePoolingDatabase(
-      dbhosts,
-      dbname,
+      jdbcDriver,
+      jdbcUrl,
       username,
       password,
       minOpenConnections,
@@ -27,13 +27,11 @@ class ApachePoolingDatabaseFactory(
       evictConnectionIfIdleFor)
     pool
   }
-
-  def apply(dbhosts: List[String], username: String, password: String) = apply(dbhosts, null, username, password)
 }
 
 class ApachePoolingDatabase(
-  dbhosts: List[String],
-  dbname: String,
+  jdbcDriver: String,
+  jdbcUrl: String,
   username: String,
   password: String,
   minOpenConnections: Int,
@@ -43,7 +41,7 @@ class ApachePoolingDatabase(
   checkConnectionHealthOnReservation: Boolean,
   evictConnectionIfIdleFor: Duration) extends Database {
 
-  Class.forName("com.mysql.jdbc.Driver")
+  Class.forName(jdbcDriver)
 
   private val config = new GenericObjectPool.Config
   config.maxActive = maxOpenConnections
@@ -57,7 +55,7 @@ class ApachePoolingDatabase(
   config.minEvictableIdleTimeMillis = evictConnectionIfIdleFor.inMillis
 
   private val connectionPool = new GenericObjectPool(null, config)
-  private val connectionFactory = new DriverManagerConnectionFactory(url(dbhosts, dbname), username, password)
+  private val connectionFactory = new DriverManagerConnectionFactory(jdbcUrl, username, password)
   private val poolableConnectionFactory = new PoolableConnectionFactory(
     connectionFactory,
     connectionPool,
@@ -77,5 +75,5 @@ class ApachePoolingDatabase(
 
   def open() = poolingDataSource.getConnection()
 
-  override def toString = dbhosts.first + "_" + dbname
+  override def toString = jdbcUrl
 }

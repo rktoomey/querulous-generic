@@ -2,7 +2,6 @@ package com.twitter.querulous.evaluator
 
 import java.sql.ResultSet
 import java.sql.{SQLException, SQLIntegrityConstraintViolationException}
-import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException
 import com.twitter.xrayspecs.{Time, Duration}
 import com.twitter.xrayspecs.TimeConversions._
 
@@ -18,12 +17,8 @@ class AutoDisablingQueryEvaluatorFactory(
       disableDuration)
   }
 
-  def apply(dbhosts: List[String], dbname: String, username: String, password: String) = {
-    chainEvaluator(queryEvaluatorFactory(dbhosts, dbname, username, password))
-  }
-
-  def apply(dbhosts: List[String], username: String, password: String) = {
-    chainEvaluator(queryEvaluatorFactory(dbhosts, username, password))
+  def apply(jdbcDriver: String, jdbcUrl: String, username: String, password: String) = {
+    chainEvaluator(queryEvaluatorFactory(jdbcDriver, jdbcUrl, username, password))
   }
 }
 
@@ -42,9 +37,6 @@ class AutoDisablingQueryEvaluator(
       noteOperationOutcome(true)
       rv
     } catch {
-      case e: MySQLIntegrityConstraintViolationException =>
-        // user error: don't blame the db.
-        throw e
       case e: SQLIntegrityConstraintViolationException =>
         // user error: don't blame the db.
         throw e

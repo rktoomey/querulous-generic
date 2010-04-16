@@ -1,6 +1,5 @@
 package com.twitter.querulous
 
-import net.lag.configgy.Configgy
 import com.twitter.querulous.database.{MemoizingDatabaseFactory, ApachePoolingDatabaseFactory}
 import com.twitter.querulous.query.SqlQueryFactory
 import com.twitter.querulous.evaluator.StandardQueryEvaluatorFactory

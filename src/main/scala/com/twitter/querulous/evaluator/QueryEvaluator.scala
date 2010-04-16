@@ -12,22 +12,13 @@ object QueryEvaluator extends QueryEvaluatorFactory {
     new StandardQueryEvaluatorFactory(databaseFactory, queryFactory)
   }
 
-  def apply(dbhosts: List[String], dbname: String, username: String, password: String) = {
-    createEvaluatorFactory()(dbhosts, dbname, username, password)
-  }
-
-  def apply(dbhosts: List[String], username: String, password: String) = {
-    createEvaluatorFactory()(dbhosts, username, password)
+  def apply(jdbcDriver: String, jdbcUrl: String, username: String, password: String) = {
+    createEvaluatorFactory()(jdbcDriver, jdbcUrl, username, password)
   }
 }
 
 trait QueryEvaluatorFactory {
-  def apply(dbhost: String, dbname: String, username: String, password: String): QueryEvaluator = {
-    apply(List(dbhost), dbname, username, password)
-  }
-  def apply(dbhost: String, username: String, password: String): QueryEvaluator = apply(List(dbhost), username, password)
-  def apply(dbhosts: List[String], dbname: String, username: String, password: String): QueryEvaluator
-  def apply(dbhosts: List[String], username: String, password: String): QueryEvaluator
+  def apply(jdbcDriver: String, jdbcUrl: String, username: String, password: String): QueryEvaluator
 }
 
 trait QueryEvaluator {

@@ -1,8 +1,6 @@
 package com.twitter.querulous.evaluator
 
 import java.sql.ResultSet
-import org.apache.commons.dbcp.{DriverManagerConnectionFactory, PoolableConnectionFactory, PoolingDataSource}
-import org.apache.commons.pool.impl.GenericObjectPool
 import com.twitter.querulous.database.{Database, DatabaseFactory}
 import com.twitter.querulous.query.QueryFactory
 
@@ -10,13 +8,8 @@ class StandardQueryEvaluatorFactory(
   databaseFactory: DatabaseFactory,
   queryFactory: QueryFactory) extends QueryEvaluatorFactory {
 
-  def apply(dbhosts: List[String], dbname: String, username: String, password: String) = {
-    val database = databaseFactory(dbhosts, dbname, username, password)
-    new StandardQueryEvaluator(database, queryFactory)
-  }
-
-  def apply(dbhosts: List[String], username: String, password: String) = {
-    val database = databaseFactory(dbhosts, username, password)
+  def apply(jdbcDriver: String, jdbcUrl: String, username: String, password: String) = {
+    val database = databaseFactory(jdbcDriver, jdbcUrl, username, password)
     new StandardQueryEvaluator(database, queryFactory)
   }
 }
