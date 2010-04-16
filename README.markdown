@@ -36,10 +36,10 @@ Each of the three components are meant to be instantiated with their correspondi
 
 ### Basic Usage
 
-Create a QueryEvaluator by connecting to a database host with a username and password:
+Create a QueryEvaluator by connecting to a database with a JDBC driver name, JDBC url, username and password:
 
     import com.twitter.querulous.evaluator.QueryEvaluator
-    val queryEvaluator = QueryEvaluator("host", "username", "password")
+	val queryEvaluator = QueryEvaluator("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/mydb", "username", "password")
 
 Run a query or two:
 
@@ -78,7 +78,7 @@ For production-quality use of `Querulous` you'll want to set configuration optio
       evictConnectionIfIdleFor:           Duration  // destroy connections if they are idle for longer than `evictConnectionIfIdleFor` amount of time
     )
     val queryEvaluatorFactory = new StandardQueryEvaluatorFactory(apachePoolingDatabaseFactory, queryFactory)
-    val queryEvaluator = queryEvaluatorFactory(List("primaryhost", "fallbackhost1", "fallbackhost2", ...), "username", "password")
+    val queryEvaluator = queryEvaluatorFactory("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/mydb", "username", "password")
 
 Now comes the fun part.
 
@@ -156,7 +156,7 @@ StatsCollector is actually just a trait that you'll need to implement using your
 
 ## Running Tests
 
-Most of the tests are unit tests and are heavily mocked. However, some tests run database queries. You should change the `username` and `password` in `config/test.conf` to something that actually works for your system. Then, from the command line, simply run:
+From the command line, simply run:
 
     % ant test
 
