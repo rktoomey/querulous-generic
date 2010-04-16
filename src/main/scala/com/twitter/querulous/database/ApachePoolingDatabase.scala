@@ -6,6 +6,7 @@ import org.apache.commons.pool.impl.{GenericObjectPool}
 import com.twitter.xrayspecs.Duration
 
 class ApachePoolingDatabaseFactory(
+  validationQuery: String,
   minOpenConnections: Int,
   maxOpenConnections: Int,
   checkConnectionHealthWhenIdleFor: Duration,
@@ -21,6 +22,7 @@ class ApachePoolingDatabaseFactory(
       password,
       minOpenConnections,
       maxOpenConnections,
+      validationQuery,
       checkConnectionHealthWhenIdleFor,
       maxWaitForConnectionReservation,
       checkConnectionHealthOnReservation,
@@ -36,6 +38,7 @@ class ApachePoolingDatabase(
   password: String,
   minOpenConnections: Int,
   maxOpenConnections: Int,
+  validationQuery: String,
   checkConnectionHealthWhenIdleFor: Duration,
   maxWaitForConnectionReservation: Duration,
   checkConnectionHealthOnReservation: Boolean,
@@ -60,7 +63,7 @@ class ApachePoolingDatabase(
     connectionFactory,
     connectionPool,
     null,
-    "/* ping */ SELECT 1",
+    validationQuery,
     false,
     true)
   private val poolingDataSource = new PoolingDataSource(connectionPool)

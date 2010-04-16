@@ -70,6 +70,7 @@ For production-quality use of `Querulous` you'll want to set configuration optio
 
     val queryFactory = new SqlQueryFactory
     val apachePoolingDatabaseFactory = new apachePoolingDatabaseFactory(
+	  validationQuery:                    String,   // query which is executed to check health of open connections	
       minOpenConnections:                 Int,      // minimum number of open/active connections at all times
       maxOpenConnections:                 Int,      // minimum number of open/active connections at all times
       checkConnectionHealthWhenIdleFor:   Duration, // asynchronously check the health of open connections every `checkConnectionHealthWhenIdleFor` amount of time

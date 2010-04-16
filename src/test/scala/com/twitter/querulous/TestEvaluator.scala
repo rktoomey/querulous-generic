@@ -7,7 +7,7 @@ import com.twitter.xrayspecs.Time
 import com.twitter.xrayspecs.TimeConversions._
 
 object TestEvaluator {
-  val testDatabaseFactory = new MemoizingDatabaseFactory(new ApachePoolingDatabaseFactory(10, 10, 1.second, 10.millis, false, 0.seconds))
+  val testDatabaseFactory = new MemoizingDatabaseFactory(new ApachePoolingDatabaseFactory("select 1 from INFORMATION_SCHEMA.SYSTEM_USERS", 10, 10, 1.second, 10.millis, false, 0.seconds))
   val testQueryFactory = new SqlQueryFactory
   val testEvaluatorFactory = new StandardQueryEvaluatorFactory(testDatabaseFactory, testQueryFactory)
 }
