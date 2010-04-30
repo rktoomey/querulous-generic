@@ -8,7 +8,6 @@ class SingleConnectionDatabaseFactory extends DatabaseFactory {
   def apply(jdbcDriver: String, jdbcUrl: String, username: String, password: String) = {
     new SingleConnectionDatabase(jdbcDriver, jdbcUrl, username, password)
   }
-  def apply(dbhosts: List[String], username: String, password: String) = apply(dbhosts, null, username, password)
 }
 
 class SingleConnectionDatabase(jdbcDriver: String, jdbcUrl: String, username: String, password: String)

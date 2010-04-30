@@ -1,12 +1,10 @@
 package com.twitter.querulous.unit
 
-import java.sql.{SQLException, DriverManager, Connection}
+import java.sql.Connection
 import scala.collection.mutable
 import net.lag.configgy.Configgy
-import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException
-import com.twitter.querulous.database.{ApachePoolingDatabaseFactory, MemoizingDatabaseFactory, Database}
-import com.twitter.querulous.evaluator.{StandardQueryEvaluator, StandardQueryEvaluatorFactory, QueryEvaluator}
-import com.twitter.querulous.query.{QueryFactory, SqlQueryFactory}
+import com.twitter.querulous.evaluator.StandardQueryEvaluator
+import com.twitter.querulous.query.SqlQueryFactory
 import com.twitter.querulous.test.FakeDatabase
 import com.twitter.xrayspecs.Time
 import com.twitter.xrayspecs.TimeConversions._
