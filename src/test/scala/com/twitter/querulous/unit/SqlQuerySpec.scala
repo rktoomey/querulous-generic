@@ -6,7 +6,8 @@ import org.specs.mock.{ClassMocker, JMocker}
 import com.twitter.querulous.query.SqlQuery
 import com.twitter.querulous.query.NullValues._
 
-object SqlQuerySpec extends Specification with JMocker with ClassMocker {
+
+class SqlQuerySpec extends Specification with JMocker with ClassMocker {
   "SqlQuery" should {
     "typecast" in {
       "arrays" in {

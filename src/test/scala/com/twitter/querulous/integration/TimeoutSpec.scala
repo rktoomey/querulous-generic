@@ -8,7 +8,8 @@ import com.twitter.xrayspecs.TimeConversions._
 import com.twitter.querulous.query.{SqlQueryFactory, TimingOutQueryFactory, SqlQueryTimeoutException}
 import com.twitter.querulous.evaluator.{StandardQueryEvaluatorFactory, QueryEvaluator}
 
-object TimeoutSpec extends Specification {
+
+class TimeoutSpec extends Specification {
   Configgy.configure("config/test.conf")
 
   import TestEvaluator._

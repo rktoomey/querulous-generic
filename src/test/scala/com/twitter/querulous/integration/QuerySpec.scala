@@ -8,7 +8,10 @@ import com.twitter.querulous.database.ApachePoolingDatabaseFactory
 import com.twitter.querulous.query._
 import com.twitter.querulous.evaluator.{StandardQueryEvaluatorFactory, QueryEvaluator}
 
-object QuerySpec extends Specification {
+
+class QuerySpec extends Specification {
+  Configgy.configure("config/" + System.getProperty("stage", "test") + ".conf")
+
   import TestEvaluator._
   "Query" should {
     val queryEvaluator = testEvaluatorFactory("org.hsqldb.jdbcDriver", "jdbc:hsqldb:mem:querulous", "sa", "")

@@ -1,9 +1,29 @@
 package com.twitter.querulous.evaluator
 
 import java.sql.ResultSet
-import com.twitter.querulous.query.SqlQueryFactory
-import com.twitter.querulous.database.ApachePoolingDatabaseFactory
 import com.twitter.xrayspecs.TimeConversions._
+import net.lag.configgy.ConfigMap
+import database._
+import query._
+
+
+object QueryEvaluatorFactory {
+  def fromConfig(config: ConfigMap, databaseFactory: DatabaseFactory, queryFactory: QueryFactory): QueryEvaluatorFactory = {
+    var factory: QueryEvaluatorFactory = new StandardQueryEvaluatorFactory(databaseFactory, queryFactory)
+    config.getConfigMap("disable").foreach { disableConfig =>
+      factory = new AutoDisablingQueryEvaluatorFactory(factory,
+                                                       disableConfig("error_count").toInt,
+                                                       disableConfig("seconds").toInt.seconds)
+    }
+    factory
+  }
+
+  def fromConfig(config: ConfigMap, statsCollector: Option[StatsCollector]): QueryEvaluatorFactory = {
+    fromConfig(config,
+               DatabaseFactory.fromConfig(config.configMap("connection_pool"), statsCollector),
+               QueryFactory.fromConfig(config, statsCollector))
+  }
+}
 
 object QueryEvaluator extends QueryEvaluatorFactory {
   private def createEvaluatorFactory() = {
