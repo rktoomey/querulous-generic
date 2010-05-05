@@ -1,4 +1,4 @@
-# Querulous
+# Querulous (vanilla JDBC fork)
 
 An agreeable way to talk to your database.
 
