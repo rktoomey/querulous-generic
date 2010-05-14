@@ -22,14 +22,6 @@ abstract class QueryEvaluatorProxy(queryEvaluator: QueryEvaluator) extends Query
     delegate(queryEvaluator.count(query, params: _*))
   }
 
-  def nextId(tableName: String) = {
-    delegate(queryEvaluator.nextId(tableName))
-  }
-
-  def insert(query: String, params: Any*) = {
-    delegate(queryEvaluator.insert(query, params: _*))
-  }
-
   def transaction[T](f: Transaction => T) = {
     delegate(queryEvaluator.transaction(f))
   }

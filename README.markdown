@@ -143,30 +143,7 @@ StatsCollector is actually just a trait that you'll need to implement using your
 
 ## Installation
 
-### Maven
-
-Add the following dependency and repository stanzas to your project's configuration
-
-    <dependency>
-        <groupId>com.twitter</groupId>
-        <artifactId>querulous</artifactId>
-        <version>1.1.0</version>
-    </dependency>
-
-    <repository>
-      <id>twitter.com</id>
-      <url>http://www.lag.net/nest</url>
-    </repository>
-
-### Ivy
-
-Add the following dependency to ivy.xml
-
-    <dependency org="com.twitter" name="querulous" rev="1.1.0"/>
-
-and the following repository to ivysettings.xml
-
-    <ibiblio name="twitter.com" m2compatible="true" root="http://www.lag.net/nest/" />
+Checkout source, run `ant`, then if all goes well, copy dist/querulous-xxxx.jar into your project's classpath.
 
 ## Running Tests
 

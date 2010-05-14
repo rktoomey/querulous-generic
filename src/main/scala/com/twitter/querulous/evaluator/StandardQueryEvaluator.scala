@@ -21,8 +21,6 @@ class StandardQueryEvaluator(protected val database: Database, queryFactory: Que
   def selectOne[A](query: String, params: Any*)(f: ResultSet => A) = withTransaction(_.selectOne(query, params: _*)(f))
   def count(query: String, params: Any*) = withTransaction(_.count(query, params: _*))
   def execute(query: String, params: Any*) = withTransaction(_.execute(query, params: _*))
-  def nextId(tableName: String) = withTransaction(_.nextId(tableName))
-  def insert(query: String, params: Any*) = withTransaction(_.insert(query, params: _*))
 
   def transaction[T](f: Transaction => T) = {
     withTransaction { transaction =>

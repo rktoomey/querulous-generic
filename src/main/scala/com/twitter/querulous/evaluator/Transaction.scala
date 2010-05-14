@@ -14,23 +14,11 @@ class Transaction(queryFactory: QueryFactory, connection: Connection) extends Qu
   }
 
   def count(query: String, params: Any*) = {
-    selectOne(query, params: _*)(_.getInt("count(*)")) getOrElse 0
+    selectOne(query, params: _*)(_.getInt(1)) getOrElse 0
   }
 
   def execute(query: String, params: Any*) = {
     queryFactory(connection, query, params: _*).execute()
-  }
-
-  def nextId(tableName: String) = {
-    execute("UPDATE " + tableName + " SET id=LAST_INSERT_ID(id+1)")
-    selectOne("SELECT LAST_INSERT_ID()") { _.getLong("LAST_INSERT_ID()") } getOrElse 0L
-  }
-
-  def insert(query: String, params: Any*): Long = {
-    execute(query, params: _*)
-    selectOne("SELECT LAST_INSERT_ID()") { _.getLong("LAST_INSERT_ID()") } getOrElse {
-      throw new SQLIntegrityConstraintViolationException
-    }
   }
 
   def begin() = {
