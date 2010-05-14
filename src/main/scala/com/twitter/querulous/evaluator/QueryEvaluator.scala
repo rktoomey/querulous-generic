@@ -35,6 +35,10 @@ object QueryEvaluator extends QueryEvaluatorFactory {
   def apply(jdbcDriver: String, jdbcUrl: String, username: String, password: String) = {
     createEvaluatorFactory()(jdbcDriver, jdbcUrl, username, password)
   }
+
+  def apply(config: ConfigMap) = {
+    createEvaluatorFactory()(config.getList("hostname").toList, config("database"), config("username"), config("password"))
+  }
 }
 
 trait QueryEvaluatorFactory {
