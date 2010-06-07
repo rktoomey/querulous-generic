@@ -1,4 +1,5 @@
-package com.twitter.querulous.evaluator
+package com.twitter.querulous
+package evaluator
 
 import java.sql.ResultSet
 import com.twitter.xrayspecs.TimeConversions._

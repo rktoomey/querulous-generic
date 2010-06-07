@@ -1,4 +1,5 @@
-package com.twitter.querulous.database
+package com.twitter.querulous
+package database
 
 import java.sql.Connection
 import com.twitter.xrayspecs.TimeConversions._

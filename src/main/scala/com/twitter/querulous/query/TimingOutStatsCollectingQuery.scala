@@ -1,4 +1,5 @@
-package com.twitter.querulous.query
+package com.twitter.querulous
+package query
 
 import java.sql.{Connection, ResultSet}
 import scala.collection.Map

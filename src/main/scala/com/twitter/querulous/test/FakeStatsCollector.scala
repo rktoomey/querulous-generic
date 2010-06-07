@@ -1,4 +1,5 @@
-package com.twitter.querulous.test
+package com.twitter.querulous
+package test
 
 import scala.collection.mutable.Map
 import com.twitter.xrayspecs.Time

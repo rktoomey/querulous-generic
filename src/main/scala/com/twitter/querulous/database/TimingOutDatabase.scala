@@ -1,4 +1,5 @@
-package com.twitter.querulous.database
+package com.twitter.querulous
+package database
 
 import java.sql.{Connection, SQLException}
 import java.util.concurrent.{TimeoutException => JTimeoutException, _}
@@ -36,7 +37,7 @@ class TimingOutDatabase(database: Database, jdbcDriver: String, jdbcUrl: String,
 
   private def greedilyInstantiateConnections() = {
     log.info("Connecting to %s", jdbcUrl)
-    (0 until maxConnections).force.map { i =>
+    (0 until maxConnections).map { i =>
       getConnection(initialTimeout)
     }.map(_.close)
   }
