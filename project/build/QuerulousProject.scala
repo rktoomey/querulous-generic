@@ -3,8 +3,8 @@ import com.twitter.sbt.StandardProject
 
 
 class QuerulousProject(info: ProjectInfo) extends StandardProject(info) {
-  val specs     = "org.scala-tools.testing" % "specs_2.8.0.RC3" % "1.6.5-SNAPSHOT"
-  val configgy  = "net.lag" % "configgy" % "2.8.0.RC3-1.5.2"
+  val specs     = "org.scala-tools.testing" % "specs_2.8.0" % "1.6.5"
+  val configgy  = "net.lag" % "configgy" % "2.8.0-1.5.5"
   val asm       = "asm" % "asm" %  "1.5.3"
   val cglib     = "cglib" % "cglib" % "2.1_3"
   val dbcp      = "commons-dbcp" % "commons-dbcp" % "1.2.2"
@@ -13,9 +13,10 @@ class QuerulousProject(info: ProjectInfo) extends StandardProject(info) {
   val mysqljdbc = "mysql" % "mysql-connector-java" % "5.1.6"
   val objenesis = "org.objenesis" % "objenesis" % "1.1"
   val pool      = "commons-pool" % "commons-pool" % "1.3"
-  val xrayspecs = "com.twitter" % "xrayspecs" % "1.0.6-2.8.0.RC3"
+  val xrayspecs = "com.twitter" % "xrayspecs_2.8.0" % "1.1"
   val hsqldb    = "hsqldb"  % "hsqldb" % "1.8.0.7"
   val ScalaToolsSnap = ScalaToolsSnapshots
+  val bumSnapsRepo = "Bum Networks Snapshots Repository" at "http://repo.bumnetworks.com/snapshots/"
   val mavenLocal = "Local Mavem" at "file://" + Path.userHome + "/.m2/repository"
   override def pomExtra =
     <licenses>
