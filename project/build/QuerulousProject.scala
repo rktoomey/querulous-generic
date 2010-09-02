@@ -4,7 +4,7 @@ import com.twitter.sbt.StandardProject
 
 class QuerulousProject(info: ProjectInfo) extends StandardProject(info) {
   val specs     = "org.scala-tools.testing" % "specs_2.8.0" % "1.6.5"
-  val configgy  = "net.lag" % "configgy" % "2.8.0-1.5.5"
+  val configgy  = "net.lag" % "configgy" % "1.5.5"
   val asm       = "asm" % "asm" %  "1.5.3"
   val cglib     = "cglib" % "cglib" % "2.1_3"
   val dbcp      = "commons-dbcp" % "commons-dbcp" % "1.2.2"
