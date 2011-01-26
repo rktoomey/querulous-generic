@@ -1,7 +1,7 @@
 package com.twitter.querulous.evaluator
 
 import java.sql.{ResultSet, SQLException, SQLIntegrityConstraintViolationException, Connection}
-import com.twitter.querulous.query.QueryFactory
+import com.twitter.querulous.query.{QueryFactory, Query}
 
 class Transaction(queryFactory: QueryFactory, connection: Connection) extends QueryEvaluator {
   def select[A](query: String, params: Any*)(f: ResultSet => A) = {
@@ -10,7 +10,7 @@ class Transaction(queryFactory: QueryFactory, connection: Connection) extends Qu
 
   def selectOne[A](query: String, params: Any*)(f: ResultSet => A) = {
     val results = select(query, params: _*)(f)
-    if (results.isEmpty) None else Some(results.first)
+    if (results.isEmpty) None else Some(results.head)
   }
 
   def count(query: String, params: Any*) = {
@@ -19,6 +19,24 @@ class Transaction(queryFactory: QueryFactory, connection: Connection) extends Qu
 
   def execute(query: String, params: Any*) = {
     queryFactory(connection, query, params: _*).execute()
+  }
+
+  def executeBatch(queryString: String)(f: Query => Unit) = {
+    val query: Query = queryFactory(connection, queryString)
+    f(query)
+    query.execute
+  }
+
+  def nextId(tableName: String) = {
+    execute("UPDATE " + tableName + " SET id=LAST_INSERT_ID(id+1)")
+    selectOne("SELECT LAST_INSERT_ID()") { _.getLong("LAST_INSERT_ID()") } getOrElse 0L
+  }
+
+  def insert(query: String, params: Any*): Long = {
+    execute(query, params: _*)
+    selectOne("SELECT LAST_INSERT_ID()") { _.getLong("LAST_INSERT_ID()") } getOrElse {
+      throw new SQLIntegrityConstraintViolationException
+    }
   }
 
   def begin() = {

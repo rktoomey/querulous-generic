@@ -1,12 +1,11 @@
-package com.twitter.querulous
-package evaluator
+package com.twitter.querulous.evaluator
 
 import java.sql.ResultSet
 import com.twitter.xrayspecs.TimeConversions._
 import net.lag.configgy.ConfigMap
-import database._
-import query._
-
+import com.twitter.querulous.StatsCollector
+import com.twitter.querulous.query.{SqlQueryFactory, QueryFactory, Query}
+import com.twitter.querulous.database.{ApachePoolingDatabaseFactory, DatabaseFactory}
 
 object QueryEvaluatorFactory {
   def fromConfig(config: ConfigMap, databaseFactory: DatabaseFactory, queryFactory: QueryFactory): QueryEvaluatorFactory = {
@@ -51,5 +50,8 @@ trait QueryEvaluator {
   def selectOne[A](query: String, params: Any*)(f: ResultSet => A): Option[A]
   def count(query: String, params: Any*): Int
   def execute(query: String, params: Any*): Int
+  def executeBatch(query: String)(f: Query => Unit): Int
+  def nextId(tableName: String): Long
+  def insert(query: String, params: Any*): Long
   def transaction[T](f: Transaction => T): T
 }

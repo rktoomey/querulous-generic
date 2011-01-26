@@ -2,37 +2,54 @@ package com.twitter.querulous.integration
 
 import org.specs.Specification
 import net.lag.configgy.Configgy
+import com.twitter.xrayspecs.Time
+import com.twitter.xrayspecs.TimeConversions._
+import com.twitter.querulous.database.ApachePoolingDatabaseFactory
 import com.twitter.querulous.query._
-import com.twitter.querulous.TestEvaluator._
-import org.specs.specification.PendingUntilFixed
+import com.twitter.querulous.evaluator.{StandardQueryEvaluatorFactory, QueryEvaluator}
 
 
-class QuerySpec extends Specification {
-  Configgy.configure("config/" + System.getProperty("stage", "test") + ".conf")
+//class QuerySpec extends Specification {
+//  Configgy.configure("config/" + System.getProperty("stage", "test") + ".conf")
+//
+//  import TestEvaluator._
+//  val config = Configgy.config.configMap("db")
+//  val username = config("username")
+//  val password = config("password")
+//  val queryEvaluator = testEvaluatorFactory("localhost", "db_test", username, password)
 
-  "Query" should {
-//    val queryEvaluator = testEvaluatorFactory("org.hsqldb.jdbcDriver", "jdbc:hsqldb:mem:querulous", "sa", "")
-
-    // specs 1.6.7.2 does not like this syntax - file a ticket
-
+//  "Query" should {
 //    doBefore {
-//      queryEvaluator.execute("CREATE TABLE foo ( bar VARCHAR(10) )")
+//      queryEvaluator.execute("CREATE TABLE IF NOT EXISTS foo(bar INT, baz INT)")
+//      queryEvaluator.execute("TRUNCATE foo")
+//      queryEvaluator.execute("INSERT INTO foo VALUES (1,1), (3,3)")
 //    }
-
+//
 //    "with too many arguments" >> {
-//      queryEvaluator.select("SELECT 1 FROM foo WHERE 1 IN (?)", 1, 2, 3) { r => 1 } must throwA[TooManyQueryParametersException]
+//      queryEvaluator.select("SELECT 1 FROM DUAL WHERE 1 IN (?)", 1, 2, 3) { r => 1 } must throwA[TooManyQueryParametersException]
 //    }
 //
 //    "with too few arguments" >> {
-//      queryEvaluator.select("SELECT 1 FROM foo WHERE 1 = ? OR 1 = ?", 1) { r => 1 } must throwA[TooFewQueryParametersException]
+//      queryEvaluator.select("SELECT 1 FROM DUAL WHERE 1 = ? OR 1 = ?", 1) { r => 1 } must throwA[TooFewQueryParametersException]
+//    }
+//
+//    "in batch mode" >> {
+//      queryEvaluator.executeBatch("UPDATE foo SET bar = ? WHERE bar = ?") { withParams =>
+//        withParams("2", "1")
+//        withParams("3", "3")
+//      } mustEqual 2
 //    }
 //
 //    "with just the right number of arguments" >> {
-//      queryEvaluator.select("SELECT count(*) FROM foo WHERE 1 IN (?)", List(1, 2, 3))(_.getInt(1)).toList mustEqual List(0)
+//      queryEvaluator.select("SELECT 1 FROM DUAL WHERE 1 IN (?)", List(1, 2, 3))(_.getInt(1)).toList mustEqual List(1)
 //    }
-
-//    doAfter {
-//      queryEvaluator.execute("DROP TABLE foo")
+//
+//    "be backwards compatible" >> {
+//      val noOpts = testEvaluatorFactory("localhost", null, config("username"), config("password"))
+//      noOpts.select("SELECT 1 FROM DUAL WHERE 1 IN (?)", List(1, 2, 3))(_.getInt(1)).toList mustEqual List(1)
+//
+//      val noDBNameOrOpts = testEvaluatorFactory("localhost", config("username"), config("password"))
+//      noDBNameOrOpts.select("SELECT 1 FROM DUAL WHERE 1 IN (?)", List(1, 2, 3))(_.getInt(1)).toList mustEqual List(1)
 //    }
-  }
-}
+//  }
+//}
