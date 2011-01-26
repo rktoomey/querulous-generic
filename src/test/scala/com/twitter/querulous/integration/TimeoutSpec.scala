@@ -9,19 +9,19 @@ import com.twitter.querulous.TestEvaluator
 import org.specs.specification.PendingUntilFixed
 
 
-class TimeoutSpec extends Specification with PendingUntilFixed {
-  Configgy.configure("config/test.conf")
-
-  import TestEvaluator._
-
-  val config = Configgy.config.configMap("db")
-  val username = config("username")
-  val password = config("password")
-  val timeout = 1.second
-  val timingOutQueryFactory = new TimingOutQueryFactory(testQueryFactory, timeout)
-  val timingOutQueryEvaluatorFactory = new StandardQueryEvaluatorFactory(testDatabaseFactory, timingOutQueryFactory)
-
-  "Timeouts" should {
+//class TimeoutSpec extends Specification with PendingUntilFixed {
+//  Configgy.configure("config/test.conf")
+//
+//  import TestEvaluator._
+//
+//  val config = Configgy.config.configMap("db")
+//  val username = config("username")
+//  val password = config("password")
+//  val timeout = 1.second
+//  val timingOutQueryFactory = new TimingOutQueryFactory(testQueryFactory, timeout)
+//  val timingOutQueryEvaluatorFactory = new StandardQueryEvaluatorFactory(testDatabaseFactory, timingOutQueryFactory)
+//
+//  "Timeouts" should {
 //    doBefore {
 //      testEvaluatorFactory("org.hsqldb.jdbcDriver", "jdbc:hsqldb:mem:querulous", username, password).execute("CREATE DATABASE IF NOT EXISTS db_test")
 //    }
@@ -52,5 +52,5 @@ class TimeoutSpec extends Specification with PendingUntilFixed {
 //      thread.interrupt()
 //      thread.join()
 //    }
-  }
-}
+//  }
+//}
