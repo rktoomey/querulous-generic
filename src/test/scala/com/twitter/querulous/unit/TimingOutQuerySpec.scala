@@ -5,7 +5,6 @@ import org.specs.Specification
 import org.specs.mock.{JMocker, ClassMocker}
 import com.twitter.querulous.test.FakeQuery
 import com.twitter.querulous.query.{TimingOutQuery, SqlQueryTimeoutException}
-import com.twitter.xrayspecs.Duration
 import com.twitter.xrayspecs.TimeConversions._
 import java.util.concurrent.{CountDownLatch, TimeUnit}
 

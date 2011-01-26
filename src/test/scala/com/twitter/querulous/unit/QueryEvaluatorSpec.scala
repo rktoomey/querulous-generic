@@ -3,15 +3,13 @@ package com.twitter.querulous.unit
 import java.sql.Connection
 import scala.collection.mutable
 import net.lag.configgy.{Config, Configgy}
-import com.twitter.querulous.database.{ApachePoolingDatabaseFactory, MemoizingDatabaseFactory, Database}
-import com.twitter.querulous.evaluator.{StandardQueryEvaluator, StandardQueryEvaluatorFactory, QueryEvaluator}
+import com.twitter.querulous.evaluator.StandardQueryEvaluator
 import com.twitter.querulous.query._
 import com.twitter.querulous.test.FakeDatabase
-import com.twitter.xrayspecs.Time
 import com.twitter.xrayspecs.TimeConversions._
 import org.specs.Specification
 import org.specs.mock.{ClassMocker, JMocker}
-
+import com.twitter.querulous.{StatsCollector, TestEvaluator}
 
 class QueryEvaluatorSpec extends Specification with JMocker with ClassMocker {
   Configgy.configure("config/test.conf")

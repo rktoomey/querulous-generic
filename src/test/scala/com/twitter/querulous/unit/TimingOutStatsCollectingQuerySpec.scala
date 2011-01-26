@@ -2,7 +2,7 @@ package com.twitter.querulous.unit
 
 import java.sql.ResultSet
 import org.specs.Specification
-import org.specs.mock.{ClassMocker, JMocker}
+import org.specs.mock.JMocker
 import com.twitter.querulous.test.{FakeQuery, FakeStatsCollector}
 import com.twitter.querulous.query.TimingOutStatsCollectingQuery
 import com.twitter.xrayspecs.Time

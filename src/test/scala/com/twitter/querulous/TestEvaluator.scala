@@ -1,11 +1,8 @@
 package com.twitter.querulous
 
-import com.twitter.querulous.database.{MemoizingDatabaseFactory, SingleConnectionDatabaseFactory}
+import com.twitter.querulous.database.SingleConnectionDatabaseFactory
 import com.twitter.querulous.query.SqlQueryFactory
 import com.twitter.querulous.evaluator.StandardQueryEvaluatorFactory
-import com.twitter.xrayspecs.Time
-import com.twitter.xrayspecs.TimeConversions._
-
 
 object TestEvaluator {
   val testDatabaseFactory = new SingleConnectionDatabaseFactory

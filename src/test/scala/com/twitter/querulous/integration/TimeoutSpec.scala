@@ -1,15 +1,15 @@
 package com.twitter.querulous.integration
 
-import java.util.concurrent.CountDownLatch
 import org.specs.Specification
 import net.lag.configgy.Configgy
-import com.twitter.xrayspecs.Time
 import com.twitter.xrayspecs.TimeConversions._
-import com.twitter.querulous.query.{SqlQueryFactory, TimingOutQueryFactory, SqlQueryTimeoutException}
-import com.twitter.querulous.evaluator.{StandardQueryEvaluatorFactory, QueryEvaluator}
+import com.twitter.querulous.query.TimingOutQueryFactory
+import com.twitter.querulous.evaluator.StandardQueryEvaluatorFactory
+import com.twitter.querulous.TestEvaluator
+import org.specs.specification.PendingUntilFixed
 
 
-class TimeoutSpec extends Specification {
+class TimeoutSpec extends Specification with PendingUntilFixed {
   Configgy.configure("config/test.conf")
 
   import TestEvaluator._
@@ -22,9 +22,9 @@ class TimeoutSpec extends Specification {
   val timingOutQueryEvaluatorFactory = new StandardQueryEvaluatorFactory(testDatabaseFactory, timingOutQueryFactory)
 
   "Timeouts" should {
-    doBefore {
-      testEvaluatorFactory("org.hsqldb.jdbcDriver", "jdbc:hsqldb:mem:querulous", username, password).execute("CREATE DATABASE IF NOT EXISTS db_test")
-    }
+//    doBefore {
+//      testEvaluatorFactory("org.hsqldb.jdbcDriver", "jdbc:hsqldb:mem:querulous", username, password).execute("CREATE DATABASE IF NOT EXISTS db_test")
+//    }
 //
 //    "honor timeouts" in {
 //      val queryEvaluator1 = testEvaluatorFactory("", "db_test", username, password)
