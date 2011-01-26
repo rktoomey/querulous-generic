@@ -3,7 +3,7 @@ import com.twitter.sbt.StandardProject
 
 class QuerulousProject(info: ProjectInfo) extends StandardProject(info) {
 
-  val specs     = "org.scala-tools.testing" % "specs_2.8.1" % "1.6.7"
+  val specs     = "org.scala-tools.testing" % "specs_2.8.1" % "1.6.7.2"
   val configgy  = "net.lag" % "configgy" % "2.0.2"
   val dbcp      = "commons-dbcp" % "commons-dbcp" % "1.4"
   val hamcrest  = "org.hamcrest" % "hamcrest-all" % "1.1"
@@ -15,7 +15,7 @@ class QuerulousProject(info: ProjectInfo) extends StandardProject(info) {
   val ScalaToolsSnap = ScalaToolsSnapshots
   val bumSnapsRepo = "Bum Networks Snapshots Repository" at "http://repo.bumnetworks.com/snapshots/"
   val twttr = "Twitter Maven Repo" at "http://maven.twttr.com/"
-  val mavenLocal = "Local Mavem" at "file://" + Path.userHome + "/.m2/repository"
+  val mavenLocal = "Local Maven" at "file://" + Path.userHome + "/.m2/repository"
 
   override def pomExtra =
     <licenses>
