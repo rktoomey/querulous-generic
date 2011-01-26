@@ -3,12 +3,12 @@ import com.twitter.sbt.StandardProject
 
 class QuerulousProject(info: ProjectInfo) extends StandardProject(info) {
 
-  val specs     = "org.scala-tools.testing" % "specs_2.8.1" % "1.6.7.2"
+  val specs     = "org.scala-tools.testing" % "specs_2.8.1" % "1.6.7"
   val configgy  = "net.lag" % "configgy" % "2.0.2"
-  val dbcp      = "commons-dbcp" % "commons-dbcp" % "1.2.2"
+  val dbcp      = "commons-dbcp" % "commons-dbcp" % "1.4"
   val hamcrest  = "org.hamcrest" % "hamcrest-all" % "1.1"
   val jmock     = "org.jmock" % "jmock" % "2.4.0"
-  val pool      = "commons-pool" % "commons-pool" % "1.3"
+  val pool      = "commons-pool" % "commons-pool" % "1.5.5"
   val xrayspecs = "com.twitter" % "xrayspecs_2.8.0" % "2.1.1"
   val hsqldb    = "hsqldb"  % "hsqldb" % "1.8.0.7"
 
