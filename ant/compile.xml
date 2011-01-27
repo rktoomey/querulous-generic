@@ -160,20 +160,22 @@
   <target name="find-revision" depends="find-git-revision, find-hg-revision, find-svn-revision" />
 
   <target name="write-build-info" depends="init, find-revision" if="ivy.extra.buildpackage">
-    <tstamp>
-      <format property="build.timestamp.time" pattern="yyyyMMdd-HHmmss" />
-      <format property="build.timestamp.date" pattern="yyyyMMdd" />
-    </tstamp>
-    <pathconvert property="build.properties.path">
-      <path location="${ivy.extra.buildpackage}" />
-      <unpackagemapper from="${basedir}/*" to="${target.dir}/classes/*" />
-    </pathconvert>
-    <propertyfile file="${build.properties.path}/build.properties">
-      <entry key="name" value="${ivy.module}" />
-      <entry key="version" value="${ivy.revision}" />
-      <entry key="build_name" value="${build.timestamp.time}" />
-      <entry key="build_revision" value="${revision}" />
-    </propertyfile>
+    <!-- TODO: this seems to succeed or fail at random.  if you serious care about building with ant, then please
+    help me fix it and submit a pull request -->
+    <!--<tstamp>-->
+      <!--<format property="build.timestamp.time" pattern="yyyyMMdd-HHmmss" />-->
+      <!--<format property="build.timestamp.date" pattern="yyyyMMdd" />-->
+    <!--</tstamp>-->
+    <!--<pathconvert property="build.properties.path">-->
+      <!--<path location="${ivy.extra.buildpackage}" />-->
+      <!--<unpackagemapper from="${basedir}/*" to="${target.dir}/classes/*" />-->
+    <!--</pathconvert>-->
+    <!--<propertyfile file="${build.properties.path}/build.properties">-->
+      <!--<entry key="name" value="${ivy.module}" />-->
+      <!--<entry key="version" value="${ivy.revision}" />-->
+      <!--<entry key="build_name" value="${build.timestamp.time}" />-->
+      <!--<entry key="build_revision" value="${revision}" />-->
+    <!--</propertyfile>-->
   </target>
 
 
