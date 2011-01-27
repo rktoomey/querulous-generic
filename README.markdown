@@ -64,11 +64,13 @@ In your pom.xml:
 
 Using the latest version of [sbt][sbt] is recommended.
 
-    sbt update publish-local
+    $ cd querulous-generic
+    $ sbt update publish-local
 
 ## Build using ant (not recommended)
 
-    ant
+    $ cd querulous-generic
+    $ ant
 
 Achtung: Using ant should work, and if it is broken I will try to fix it.  However, I haven't used ant since 2008, so I would
 happily accept pull requests to fix, update or improve the ant build.
@@ -76,6 +78,7 @@ happily accept pull requests to fix, update or improve the ant build.
 ## But my build didn't work...
 
 Example of working sbt build: <https://gist.github.com/797914>
+
 Example of working ant build: <https://gist.github.com/798989>
 
 Compare your output against my output and report what's gone wrong (unsatisfied deps, target misfire, compile error etc).
