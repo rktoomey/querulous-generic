@@ -90,7 +90,7 @@
       <classpath>
         <path refid="deps.path" />
       </classpath>
-      <include name="**/*.scala" />
+      <include name="scala/**/*.scala" />
     </scalac>
   </target>
 
