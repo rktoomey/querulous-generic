@@ -14,14 +14,15 @@ Copyright 2010 Twitter, Inc. See included LICENSE file.
 * Minimalist: minimal code, minimal assumptions, minimal dependencies. You write highly-tuned SQL and we get out of the way;
 * Highly modular, highly configurable.
 
-The grandpa Github source repository is {here}[http://github.com/nkallen/querulous/]. Patches and contributions are
-welcome.
+The grandpa Github source repository is [nkallen/queruous][grandpa], although the party appears to have moved to
+[twitter/querulous][mothership].
 
-This fork is a generic implementation of querulous that strives to stay current with the latest version of Scala.
+This fork is a generic implementation of querulous that strives to stay current with the latest version of Scala.  Patches
+and contributions are welcome.
 
 ## Implementation notes
 
-See {here}[http://github.com/nkallen/querulous/].
+See [nkallen/querulous][grandpa].
 
 ## Drop the deps into place
 
@@ -63,16 +64,17 @@ Checkout source:
 
 Build via:
 
-Using the latest version of {sbt}[http://code.google.com/p/simple-build-tool/] is recommended.
+Using the latest version of [sbt][sbt] is recommended.
 
     sbt update publish-local
 
-Use of `ant` should work, and if it is broken I will try to fix it.  However, I haven't used `ant` since 2008, so I would
+
+Use of `ant` should work, and if it is broken I will try to fix it.  However, I haven't used ant since 2008, so I would
 happily accept pull requests to fix, update or improve the ant build.
 
 ## But my build didn't work...
 
-Compare your sbt output against my output at [https://gist.github.com/797914] and file an issue explaining how the two
+Compare your sbt output against my output at <https://gist.github.com/797914> and file an issue explaining how the two
 differ.
 
 ## Running Tests
@@ -81,4 +83,13 @@ The tests were broken when I forked, so...  um.  Well.  I will do my best to mer
 
 ## Reporting problems
 
-The Github issue tracker is {here}[http://github.com/rktoomey/querulous-generic/issues].
+Drop me a line.
+
+## What does the future hold?
+
+Batch processing, pixel perfect repros of old masters suitable for framing, a full 32-volume calf-bound hand-tooled set of
+Best of Obfuscated Perl with deckle-edged pages.  No?  Well, OK.  Batch processing it is.
+
+   [sbt]: http://code.google.com/p/simple-build-tool/
+   [grandpa]: http://github.com/nkallen/querulous/
+   [mothership]: http://github.com/twitter/querulous/
